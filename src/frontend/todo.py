@@ -1,12 +1,13 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
 
-from constant import (
+from frontend.constant import (
     STYLE_TRANSPARENT,
     STYLE_HOVER,
     STYLE_PANE_TRANSPARENT,
     STYLE_PANE_HOVER,
-    STYLE_BUTTON
+    STYLE_BUTTON,
+    STYLE_EXTRA_PANEL
 )
 
 class TransparentTimer(QtWidgets.QWidget):
@@ -98,7 +99,7 @@ class TransparentTimer(QtWidgets.QWidget):
 
         self.extra_panel = QtWidgets.QFrame(self.pane)
         self.extra_panel.setMaximumHeight(0)
-        self.extra_panel.setStyleSheet("background-color: rgba(255, 255, 255, 30); border-radius: 5px;")
+        self.extra_panel.setStyleSheet(STYLE_EXTRA_PANEL)
         self.extra_panel.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
 
         extra_layout = QtWidgets.QVBoxLayout(self.extra_panel)
@@ -233,10 +234,3 @@ class TransparentTimer(QtWidgets.QWidget):
         # self.anim.setEndValue(new_height)
         self.anim.start()
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    window = TransparentTimer()
-    window.resize(200, 130)
-    window.move(1000, 50)
-    window.show()
-    sys.exit(app.exec_())

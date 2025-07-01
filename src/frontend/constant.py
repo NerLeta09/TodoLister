@@ -40,3 +40,8 @@ STYLE_BUTTON = """
         background-color: rgba(255, 255, 255, 100);
     }
 """
+
+STYLE_EXTRA_PANEL = """
+    background-color: rgba(255, 255, 255, 30); 
+    border-radius: 5px;
+"""
