@@ -1,7 +1,10 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
+import logging
 
-from frontend.constant import (
+logger = logging.getLogger(__name__) 
+
+from .constant import (
     STYLE_TRANSPARENT,
     STYLE_HOVER,
     STYLE_PANE_TRANSPARENT,
@@ -209,7 +212,8 @@ class TransparentTimer(QtWidgets.QWidget):
             self.time_left -= 290
             if self.time_left < 0:
                 self.time_left = 0  # 避免负数
-            print(f"[DEBUG] Time fast-forwarded by 4m50s, new time_left = {self.time_left} seconds")
+            
+            logger.debug(f"Time fast-forwarded by 4m50s, new time_left = {self.time_left} seconds")
             self.update_time()  # 立即刷新显示
             event.accept()
         else:
@@ -233,4 +237,12 @@ class TransparentTimer(QtWidgets.QWidget):
         self.anim.finished.connect(self.adjustSize)  # 动画后自动调整窗口高度
         # self.anim.setEndValue(new_height)
         self.anim.start()
+
+    closed = QtCore.pyqtSignal()
+
+    def closeEvent(self, event):
+        logger.debug("Closing window, quitting app...")
+        self.closed.emit()
+        QtWidgets.QApplication.quit()
+        event.accept()
 
